@@ -33,6 +33,39 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <div id="loading-indicator" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; z-index: 9999; color: white; font-family: sans-serif; flex-direction: column;">
+    <div style="width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #fff; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    <p style="margin-top: 20px;">Загрузка NeoThread...</p>
+  </div>
+  <style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+  <script>
+    // Remove loading indicator when Flutter is loaded
+    window.addEventListener('load', function() {
+      // We can't know exactly when Flutter renders the first frame, 
+      // but we can hide this after a short delay or let Flutter cover it.
+      // Flutter renders into the body, replacing content? 
+      // Actually, Flutter appends to body or shadow root.
+      // Let's set a timeout to remove it if it's still there, 
+      // but ideally Flutter's bootstrap handles this.
+      // For now, we leave it, Flutter will render on top (z-index might be an issue).
+      
+      // Better approach: Listen for a custom event from Flutter or just let Flutter cover it.
+      // Since we use z-index 9999, we MUST remove it.
+      
+      // Wait for the app to be ready.
+      // We can expose a function for Flutter to call, or just use a timer as a fallback.
+      setTimeout(function() {
+        var loader = document.getElementById('loading-indicator');
+        if (loader) {
+          loader.style.opacity = '0';
+          loader.style.transition = 'opacity 0.5s';
+          setTimeout(function() { loader.remove(); }, 500);
+        }
+      }, 3000); // Fallback 3s
+    });
+  </script>
   <script>
     // One-time cleanup for GitHub Pages deployments.
     // Old Flutter service workers can pin the app to a stale/broken build and make the UI look “frozen”.
