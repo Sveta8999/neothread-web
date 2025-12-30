@@ -32453,7 +32453,7 @@ $S:2}
 A.aOi.prototype={
 $1(a){var s=A.ew().b
 s=s==null?null:s.canvasKitBaseUrl
-return(s==null?"https://www.gstatic.com/flutter-canvaskit/035316565ad77281a75305515e4682e6c4c6f7ca/":s)+a},
+return(s==null?"canvaskit/":s)+a},
 $S:39}
 A.aaT.prototype={
 h3(a,b){var s,r=this.a
